@@ -12,13 +12,6 @@ function updateTotalPrice(amount) {
   totalPriceSpan.textContent = totalPrice.toFixed(2);
 }
  
-// Function to remove an item
-function removeItem(event) {
-  const item = event.target.closest('li');
-  const price = parseFloat(item.dataset.price);
-  updateTotalPrice(-price);
-  item.remove();
-}
 addProductButton.addEventListener("click", (e)=> {
   e.preventDefault();
   const name = productNameInput.value;
@@ -29,18 +22,18 @@ addProductButton.addEventListener("click", (e)=> {
     li.className = 'cart-item';
     li.dataset.price = price;
     li.innerHTML = `
+    <div class="item-info">
       <div class="cadres">
         <span class="name">${name}</span>
         <span class="price">$${price.toFixed(2)}</span>
-
-        <div class="qty-controls">
+     </div>
+      <div class="qty-controls">
           <button class="decrease-qty">-</button>
           <span class="quantity">1</span>
           <button class="increase-qty">+</button>
-        </div>
-
-        <button class="remove-item">Remove</button>
-      </div>
+          <button class="remove-item">Remove</button>
+      </div>   
+    </div>
     `;
     cart.appendChild(li);
     updateTotalPrice(price);
@@ -51,6 +44,7 @@ addProductButton.addEventListener("click", (e)=> {
       quantity += 1;
       qtySpan.textContent = quantity;
       updateTotalPrice(price);
+      console.log("price: ", price);
     });
  
     li.querySelector('.decrease-qty').addEventListener('click', () => {
@@ -60,10 +54,23 @@ addProductButton.addEventListener("click", (e)=> {
         quantity -= 1;
         qtySpan.textContent = quantity;
         updateTotalPrice(-price);
+        console.log("price: ", price);
       }
     });
- 
-    li.querySelector('.remove-item').addEventListener('click', removeItem); 
+    // Function to remove an item
+  function removeItem(event) {
+    const item = event.target.closest('li');
+    const price = parseFloat(item.dataset.price);
+    console.log("price: ", price);
+    // updateTotalPrice(-price);
+    const quantity = parseInt(item.querySelector('.quantity').textContent);
+    console.log("quantity: ", quantity);
+    updateTotalPrice(-price * quantity); // Deduct the total price based on quantity
+    console.log("totalPrice: ", totalPrice); // Check updated totalPrice
+    item.remove();
+  }
+  
+  li.querySelector('.remove-item').addEventListener('click', removeItem); 
     // Clear input fields
     productNameInput.value = '';
     productPriceInput.value = '';
