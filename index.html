@@ -8,14 +8,17 @@
 </head>
 <body>
   <h1>Dynamic Shopping Cart</h1>
-  <div id="product-container">
-    <input type="text" id="product-name" placeholder="Product Name">
-    <input type="number" id="product-price" placeholder="Product Price">
-    <button id="add-product">Add Product</button>
+  <div class="grid-container" id="product-container"> 
+    <div class="item name" >  <input type="text" id="product-name" placeholder="Product Name"> </div>
+    <div class="item pric">  <input type="number" id="product-price" placeholder="Product Price"></div>
+    <div class="item butn"> <button id="add-product">Add Product</button> </div> 
   </div>
-  <ul id="cart"></ul>
-  <h3>Total: $<span id="total-price">0</span></h3>
- 
+  <div class="grid-container" id="productItems">
+    <ul id="cart"></ul>
+  </div>
+  <div>
+    <h3>Total: $<span id="total-price">0</span></h3>
+ </div>
   <script src="script.js"></script>
 </body>
 </html>

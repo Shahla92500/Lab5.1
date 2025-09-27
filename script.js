@@ -22,18 +22,20 @@ addProductButton.addEventListener("click", (e)=> {
     li.className = 'cart-item';
     li.dataset.price = price;
     li.innerHTML = `
-    <div class="item-info">
-      <div class="cadres">
+
+      <div class="cadres" id="productItems">
         <span class="name">${name}</span>
+      </div>
+      <div id="productItems">
         <span class="price">$${price.toFixed(2)}</span>
      </div>
-      <div class="qty-controls">
+      <div class="qty-controls" id="productItems">
           <button class="decrease-qty">-</button>
           <span class="quantity">1</span>
           <button class="increase-qty">+</button>
           <button class="remove-item">Remove</button>
       </div>   
-    </div>
+
     `;
     cart.appendChild(li);
     updateTotalPrice(price);
