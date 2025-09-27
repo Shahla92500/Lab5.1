@@ -25,7 +25,22 @@ body {
 .cart-item span {
   flex: 1;
 }
- 
+ /* make ONE row per item */
+#cart li .cadres {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* keep - 1 + on one line */
+#cart li .qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;   /* space after price */
+}
+#cart li .remove-item {
+  margin-left: auto;
+}
 .cart-item button {
   margin-left: 10px;
 }
@@ -38,4 +53,24 @@ body {
 .cart-item button {
   padding: 4px 8px;
   cursor: pointer;
+}
+.cadres {
+  display: flex;
+  align-items: center;
+  gap: 10px;              
+  flex-wrap: wrap;  
+}
+.qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+}
+.cart-item .cadres {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.remove-item {
+  margin-left: auto;
 }

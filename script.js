@@ -21,7 +21,7 @@ function removeItem(event) {
 }
 addProductButton.addEventListener("click", (e)=> {
   e.preventDefault();
-  const name = productNameInput.value.trim();
+  const name = productNameInput.value;
   const price = parseFloat(productPriceInput.value);
  
   if (name && !isNaN(price) && price > 0) {
@@ -29,23 +29,45 @@ addProductButton.addEventListener("click", (e)=> {
     li.className = 'cart-item';
     li.dataset.price = price;
     li.innerHTML = `
-      ${name} - $${price.toFixed(2)}
-      <div class="qty-controls">
-        <button class="decrease-qty">-</button>
-        <span class="quantity">1</span>
-        <button class="increase-qty">+</button>
+      <div class="cadres">
+        <span class="name">${name}</span>
+        <span class="price">$${price.toFixed(2)}</span>
+
+        <div class="qty-controls">
+          <button class="decrease-qty">-</button>
+          <span class="quantity">1</span>
+          <button class="increase-qty">+</button>
+        </div>
+
+        <button class="remove-item">Remove</button>
       </div>
-      <button class="remove-item">Remove</button>
     `;
     cart.appendChild(li);
     updateTotalPrice(price);
+    // Add event listeners for quantity buttons and remove button
+    li.querySelector('.increase-qty').addEventListener('click', () => {
+      const qtySpan = li.querySelector('.quantity');
+      let quantity = parseInt(qtySpan.textContent);
+      quantity += 1;
+      qtySpan.textContent = quantity;
+      updateTotalPrice(price);
+    });
  
+    li.querySelector('.decrease-qty').addEventListener('click', () => {
+      const qtySpan = li.querySelector('.quantity');
+      let quantity = parseInt(qtySpan.textContent);
+      if (quantity > 1) {
+        quantity -= 1;
+        qtySpan.textContent = quantity;
+        updateTotalPrice(-price);
+      }
+    });
+ 
+    li.querySelector('.remove-item').addEventListener('click', removeItem); 
     // Clear input fields
     productNameInput.value = '';
     productPriceInput.value = '';
   } else {
     alert('Please enter a valid product name and price.');
   }     
-
-
 });
